@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIVANNE - Joias e Acessórios de Luxo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Montserrat',sans-serif;background:#fff;color:#000}
+h1,h2,h3{font-family:'Playfair Display',serif}
+a{text-decoration:none;color:inherit}
+img{width:100%;display:block}
+
+/* HEADER */
+header{
+position:fixed;top:0;width:100%;z-index:100;
+display:flex;justify-content:space-between;align-items:center;
+padding:1rem 2rem;background:rgba(255,255,255,.95);
+box-shadow:0 2px 15px rgba(0,0,0,.1)
+}
+.logo{font-size:1.6rem;font-weight:700;color:#D4AF37}
+nav ul{display:flex;gap:2rem;list-style:none}
+nav a:hover{color:#D4AF37}
+
+/* HERO */
+.hero{
+height:100vh;
+background:url("https://images.unsplash.com/photo-1600185365483-26d7c9a4b1c4?auto=format&fit=crop&w=1920&q=80") center/cover no-repeat;
+display:flex;align-items:center;justify-content:center;
+position:relative;color:#fff;text-align:center
+}
+.hero::before{
+content:"";position:absolute;inset:0;background:rgba(0,0,0,.4)
+}
+.hero-content{position:relative;z-index:1;max-width:700px}
+.hero h1{font-size:3.5rem;margin-bottom:1rem}
+.hero p{font-size:1.2rem;margin-bottom:2rem}
+
+/* BOTÃO */
+.btn{
+background:#D4AF37;color:#000;
+padding:1rem 2.5rem;border:none;
+font-weight:600;cursor:pointer;
+transition:.3s
+}
+.btn:hover{background:#c0c0c0;transform:scale(1.05)}
+
+/* SEÇÕES */
+section{padding:6rem 2rem;max-width:1200px;margin:auto}
+.sobre,.destaque,.cta{text-align:center}
+.sobre h2,.destaque h2,.cta h2{color:#D4AF37;font-size:2.5rem}
+
+/* COLEÇÕES */
+.colecoes{background:#f5f5dc}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:2rem;margin-top:3rem
+}
+.item{
+background:#fff;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+transition:.4s;overflow:hidden
+}
+.item:hover{transform:translateY(-12px)}
+.item img{height:280px;object-fit:cover;transition:.5s}
+.item:hover img{transform:scale(1.08)}
+.item h3{text-align:center;margin:1.2rem 0}
+
+/* DESTAQUE */
+.destaque img{
+margin-top:3rem;border-radius:15px;
+box-shadow:0 20px 50px rgba(0,0,0,.25)
+}
+
+/* CTA */
+.cta{
+background:url("https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1920&q=80") center/cover no-repeat;
+color:#fff;position:relative
+}
+.cta::before{
+content:"";position:absolute;inset:0;background:rgba(0,0,0,.6)
+}
+.cta *{position:relative}
+
+/* FOOTER */
+footer{background:#000;color:#fff;text-align:center;padding:2.5rem}
+.footer-links{display:flex;justify-content:center;gap:2rem;margin:1rem 0}
+.social-icons a{font-size:1.4rem;margin:.5rem}
+.social-icons a:hover{color:#D4AF37}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+.hero h1{font-size:2.3rem}
+nav ul{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">SIVANNE</div>
+<nav>
+<ul>
+<li><a href="#hero">Início</a></li>
+<li><a href="#sobre">Sobre</a></li>
+<li><a href="#colecoes">Coleções</a></li>
+</ul>
+</nav>
+</header>
+
+<style>
+/* HERO – BANNER GRANDE */
+.hero{
+  height:100vh;
+  background:url("https://i.im.ge/2025/12/15/BMzvv9.39964f17-b98d-4c10-8f9f-f24be58c8441.png") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  color:#fff;
+  text-align:center;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.25),
+    rgba(0,0,0,.6)
+  );
+}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+  max-width:700px;
+}
+</style>
+
+<section id="hero" class="hero">
+  <div class="hero-content">
+    <h1>SIVANNE</h1>
+    <p>
+      Onde o luxo encontra a eternidade<br>
+      Joias criadas para marcar momentos únicos
+    </p>
+    <button class="btn" onclick="scrollToSection('colecoes')">
+      Descubra a Coleção
+    </button>
+  </div>
+</section>
+<section id="sobre" class="sobre">
+<h2>Sobre a Marca</h2>
+<p>
+A SIVANNE nasce da união entre arte, elegância e exclusividade.<br>
+Mais do que joias, criamos símbolos eternos de luxo.
+</p>
+</section>
+<style>
+/* GRID */
+.colecoes{
+  background:#f5f5dc;
+  text-align:center;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:2.5rem;
+  margin-top:3rem;
+}
+
+/* CARD */
+.item{
+  background:#fff;
+  box-shadow:0 15px 40px rgba(0,0,0,.15);
+  transition:all .6s ease;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.item::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(212,175,55,.15),transparent);
+  opacity:0;
+  transition:.6s;
+}
+
+.item:hover::after{opacity:1}
+
+.item:hover{
+  transform:translateY(-18px) scale(1.03);
+  box-shadow:0 30px 70px rgba(212,175,55,.35);
+}
+
+/* IMAGEM */
+.item img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  transition:transform .8s ease;
+}
+
+.item:hover img{
+  transform:scale(1.12);
+}
+
+/* TEXTO */
+.item h3{
+  margin:1.5rem 0 1rem;
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;
+  transition:.4s;
+}
+
+.item:hover h3{
+  color:#D4AF37;
+}
+
+/* BOTÕES CENTRALIZADOS */
+.colecoes .btn{
+  margin:0 auto 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#D4AF37,#f5e6a8);
+  color:#000;
+  padding:.9rem 2.4rem;
+  font-weight:600;
+  font-size:.95rem;
+  border:none;
+  border-radius:40px;
+  cursor:pointer;
+  letter-spacing:1px;
+  transition:all .4s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+/* BRILHO */
+.colecoes .btn::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.8),transparent);
+  transition:.6s;
+}
+
+.colecoes .btn:hover::before{
+  left:120%;
+}
+
+.colecoes .btn:hover{
+  background:linear-gradient(135deg,#000,#D4AF37);
+  color:#fff;
+  transform:translateY(-6px) scale(1.07);
+  box-shadow:0 18px 35px rgba(212,175,55,.55);
+}
+</style>
+
+<section id="colecoes" class="colecoes">
+  <h2>Coleções</h2>
+
+  <div class="grid">
+
+    <div class="item">
+      <img src="https://i.im.ge/2025/12/15/BMGgZ9.475c49da70254f3ab01dcf7547ed8da1.jpeg">
+      <h3>Anéis Exclusivos</h3>
+      <button class="btn">Ver Detalhes</button>
+    </div>
+
+    <div class="item">
+      <img src="https://i.im.ge/2026/01/04/BBkH1F.710a8d12a01f9247f73ed72b25db19f4.jpeg">
+      <h3>Pulseiras Luxuosas</h3>
+      <button class="btn">Ver Detalhes</button>
+    </div>
+
+    <div class="item">
+      <img src="https://i.im.ge/2025/12/15/BMBkFL.558dcc57170dd4eda76eef6be2a5a250.jpeg">
+      <h3>Brincos Elegantes</h3>
+      <button class="btn">Ver Detalhes</button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* DESTAQUE COM BANNER MAIS LARGO */
+.destaque{
+  position:relative;
+  min-height:85vh; /* MAIS LARGO / IMPONENTE */
+  padding:10rem 2rem;
+  text-align:center;
+  color:#fff;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.destaque::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("https://i.im.ge/2025/12/15/BMnMkp.0a70cc311cf7ed1bd543119c2666adc2.jpeg")
+    center/cover no-repeat;
+  animation:luxoMove 22s ease-in-out infinite;
+  transform-origin:center;
+}
+
+.destaque::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.5),
+    rgba(0,0,0,.75)
+  );
+}
+
+/* CONTEÚDO (MENOR E MAIS SOFISTICADO) */
+.destaque h2,
+.destaque p{
+  position:relative;
+  z-index:1;
+}
+
+.destaque h2{
+  font-size:2.2rem; /* DIMINUÍDO */
+  margin-bottom:1rem;
+  color:#D4AF37;
+  letter-spacing:2px;
+}
+
+.destaque p{
+  font-size:1rem; /* DIMINUÍDO */
+  line-height:1.7;
+  opacity:.9;
+}
+
+/* ANIMAÇÃO SUAVE */
+@keyframes luxoMove{
+  0%{
+    transform:scale(1) translateY(0);
+  }
+  50%{
+    transform:scale(1.1) translateY(-20px);
+  }
+  100%{
+    transform:scale(1) translateY(0);
+  }
+}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+  .destaque{
+    min-height:70vh;
+    padding:7rem 1.5rem;
+  }
+  .destaque h2{
+    font-size:1.8rem;
+  }
+  .destaque p{
+    font-size:.95rem;
+  }
+}
+</style>
+
+<section id="destaque" class="destaque">
+  <h2>Luxo & Exclusividade</h2>
+  <p>
+    Design exclusivo<br>
+    Materiais selecionados<br>
+    Brilho que define quem você é
+  </p>
+</section>
+<style>
+/* CTA ANIMADO */
+.cta{
+  background:#000;
+  color:#fff;
+  position:relative;
+  text-align:center;
+  padding:7rem 2rem;
+  overflow:hidden;
+}
+
+/* ANIMAÇÃO DO TEXTO */
+.cta h2,
+.cta p{
+  opacity:0;
+  animation:fadeUp 1.2s ease forwards;
+}
+
+.cta h2{
+  color:#D4AF37;
+  font-size:2.4rem;
+  margin-bottom:1rem;
+  animation-delay:.2s;
+}
+
+.cta p{
+  font-size:1.1rem;
+  margin-bottom:2.5rem;
+  animation-delay:.5s;
+}
+
+/* BOTÃO CHAMATIVO */
+.cta .btn{
+  background:linear-gradient(135deg,#D4AF37,#f5e6a8);
+  color:#000;
+  padding:1.2rem 3rem;
+  font-weight:700;
+  font-size:1rem;
+  border:none;
+  cursor:pointer;
+  border-radius:50px;
+  transition:all .4s ease;
+  animation:pulse 2.5s infinite;
+}
+
+/* HOVER DO BOTÃO */
+.cta .btn:hover{
+  background:linear-gradient(135deg,#000,#D4AF37);
+  color:#fff;
+  transform:translateY(-6px) scale(1.08);
+  box-shadow:0 20px 40px rgba(212,175,55,.6);
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes pulse{
+  0%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.06);
+  }
+  100%{
+    transform:scale(1);
+  }
+}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+  .cta h2{
+    font-size:2rem;
+  }
+  .cta p{
+    font-size:1rem;
+  }
+}
+</style>
+<!-- CTA -->
+<section id="cta" class="cta reveal">
+  <div class="cta-content">
+    <h2>Eleve seu estilo ao mais alto nível</h2>
+    <p>Descubra o universo SIVANNE e viva o luxo em cada detalhe</p>
+   <button class="btn cta-btn" onclick="openStore()">
+  Entrar na Loja
+</button>
+  </div>
+</section>
+<style>
+/* ================= CTA ================= */
+.cta{
+  position:relative;
+  background:#111;
+  color:#fff;
+  padding:6rem 2rem;
+  text-align:center;
+  overflow:hidden;
+}
+
+.cta::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top, rgba(212,175,55,.25), transparent 70%);
+}
+
+.cta-content{
+  position:relative;
+  max-width:700px;
+  margin:auto;
+}
+
+.cta h2{
+  font-family:'Playfair Display',serif;
+  font-size:2.6rem;
+  color:#D4AF37;
+  margin-bottom:1rem;
+}
+
+.cta p{
+  font-size:1.05rem;
+  opacity:.85;
+  margin-bottom:2.5rem;
+}
+
+.cta-btn{
+  background:linear-gradient(135deg,#D4AF37,#f5e6a8);
+  color:#000;
+  padding:1rem 3rem;
+  font-weight:600;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  letter-spacing:1px;
+  transition:.4s;
+}
+
+.cta-btn:hover{
+  background:#000;
+  color:#D4AF37;
+  transform:translateY(-6px) scale(1.06);
+  box-shadow:0 20px 40px rgba(212,175,55,.5);
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#000;
+  color:#fff;
+  padding:5rem 2rem 2rem;
+}
+
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3rem;
+}
+
+.footer-brand .logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.9rem;
+  color:#D4AF37;
+  letter-spacing:3px;
+  margin-bottom:1rem;
+}
+
+.footer-brand p{
+  font-size:.95rem;
+  line-height:1.6;
+  opacity:.75;
+}
+
+.footer-links{
+  display:flex;
+  flex-direction:column;
+  gap:.9rem;
+}
+
+.footer-links a{
+  font-size:.95rem;
+  opacity:.8;
+  transition:.3s;
+}
+
+.footer-links a:hover{
+  color:#D4AF37;
+  transform:translateX(6px);
+  opacity:1;
+}
+
+.social-icons{
+  display:flex;
+  gap:1.2rem;
+}
+
+.social-icons a{
+  width:42px;
+  height:42px;
+  border:1px solid #D4AF37;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.2rem;
+  transition:.4s;
+}
+
+.social-icons a:hover{
+  background:#D4AF37;
+  color:#000;
+  transform:translateY(-6px) scale(1.08);
+}
+
+.footer-bottom{
+  text-align:center;
+  margin-top:3rem;
+  font-size:.85rem;
+  opacity:.6;
+}
+
+/* ================= ANIMAÇÕES SCROLL ================= */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all .9s ease;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.reveal-left{
+  transform:translateX(-40px);
+}
+
+.reveal-right{
+  transform:translateX(40px);
+}
+
+.reveal-left.active,
+.reveal-right.active{
+  transform:translateX(0);
+}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+  .footer-container{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+  .social-icons{
+    justify-content:center;
+  }
+}
+</style>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+    }
+  });
+},{ threshold:0.15 });
+
+reveals.forEach(el => observer.observe(el));
+</script>
+
+<footer>
+  <div class="footer-container">
+
+    <!-- COLUNA 1 -->
+    <div class="footer-brand">
+      <div class="logo">SIVANNE</div>
+      <p>
+        Luxo em cada detalhe.<br>
+        Joias criadas para marcar momentos eternos.
+      </p>
+    </div>
+
+    <!-- COLUNA 2 -->
+    <div class="footer-links">
+      <a href="#colecoes">Coleções</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#">Política de Privacidade</a>
+    </div>
+
+    <!-- COLUNA 3 – CONTATO VISÍVEL -->
+    <div class="footer-contact">
+      <h4>Contato</h4>
+
+      <div class="contact-item">
+        <span class="icon">📞</span>
+        <a href="tel:+5521964300608">+55 21 96430-0608</a>
+      </div>
+
+      <div class="contact-item">
+        <span class="icon">📷</span>
+        <a href="https://instagram.com/Sivanne" target="_blank">@Sivanneloja</a>
+      </div>
+
+      <div class="contact-item">
+        <span class="icon">✉️</span>
+        <a href="mailto:SIVANNE@news">SIVANNE@gmail.com</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © SIVANNE – Luxo em cada detalhe
+  </div>
+</footer>
+
+<style>
+/* FOOTER BASE */
+footer{
+  background:#000;
+  color:#fff;
+  padding:5rem 2rem 2rem;
+}
+
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3rem;
+}
+
+/* COLUNA 1 */
+.footer-brand .logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.9rem;
+  color:#D4AF37;
+  letter-spacing:3px;
+  margin-bottom:1rem;
+}
+
+.footer-brand p{
+  font-size:.95rem;
+  line-height:1.6;
+  opacity:.75;
+}
+
+/* COLUNA 2 */
+.footer-links{
+  display:flex;
+  flex-direction:column;
+  gap:.9rem;
+}
+
+.footer-links a{
+  font-size:.95rem;
+  opacity:.8;
+  transition:.3s;
+}
+
+.footer-links a:hover{
+  color:#D4AF37;
+  transform:translateX(6px);
+}
+
+/* COLUNA 3 – CONTATO */
+.footer-contact{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+.footer-contact h4{
+  font-family:'Playfair Display',serif;
+  color:#D4AF37;
+  margin-bottom:.5rem;
+}
+
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  font-size:.95rem;
+}
+
+.contact-item .icon{
+  font-size:1.1rem;
+}
+
+.contact-item a{
+  opacity:.85;
+  transition:.3s;
+}
+
+.contact-item a:hover{
+  color:#D4AF37;
+  transform:translateX(4px);
+}
+
+/* FOOTER BOTTOM */
+.footer-bottom{
+  text-align:center;
+  margin-top:3rem;
+  font-size:.85rem;
+  opacity:.6;
+}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+  .footer-container{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .contact-item{
+    justify-content:center;
+  }
+}
+</style>
+
+
+
+<script>
+function scrollToSection(id){
+document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+</script>
+<script>
+function openStore(){
+  document.body.style.opacity = "0.6";
+  document.body.style.transition = "opacity 0.4s ease";
+
+  setTimeout(() => {
+    window.open("sivanneloja/", "_blank");
+    document.body.style.opacity = "1";
+  }, 400);
+}
+</script>
+</body>
+</html>

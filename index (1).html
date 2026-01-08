@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIVANNE - Joias Exclusivas</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:'Roboto',sans-serif;
+background:#F5F5DC;
+color:#333;
+}
+
+h1,h2{
+font-family:'Playfair Display',serif;
+color:#D4AF37;
+}
+
+header{
+text-align:center;
+padding:40px;
+background:#fff;
+border-bottom:1px solid #ddd;
+}
+
+.container{max-width:1200px;margin:auto;padding:20px}
+
+.categories{
+display:flex;
+justify-content:center;
+gap:15px;
+margin:30px 0;
+}
+
+.category-btn{
+background:#D4AF37;
+color:#fff;
+border:none;
+padding:10px 24px;
+border-radius:25px;
+cursor:pointer;
+transition:.3s;
+}
+
+.category-btn.active,
+.category-btn:hover{
+background:#B8860B;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+gap:25px;
+}
+
+.product{
+background:#fff;
+border-radius:18px;
+padding:20px;
+text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+transition:.3s;
+}
+
+.product:hover{transform:translateY(-8px)}
+
+.product img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:12px;
+margin-bottom:15px;
+}
+
+.product p{color:#D4AF37;margin:10px 0}
+
+.add-to-cart{
+background:linear-gradient(135deg,#D4AF37,#B8860B);
+border:none;
+color:#fff;
+padding:12px 24px;
+border-radius:30px;
+cursor:pointer;
+transition:.3s;
+}
+
+.add-to-cart.added{background:#4CAF50}
+
+.cart-toggle{
+position:fixed;
+top:20px;
+right:20px;
+background:#D4AF37;
+border:none;
+color:#fff;
+font-size:20px;
+padding:12px;
+border-radius:50%;
+cursor:pointer;
+z-index:1001;
+}
+
+.cart{
+position:fixed;
+top:0;
+right:0;
+width:340px;
+height:100%;
+background:#fff;
+padding:20px;
+border-left:1px solid #ddd;
+transform:translateX(100%);
+transition:.3s;
+z-index:1000;
+}
+
+.cart.open{transform:translateX(0)}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:12px 0;
+}
+
+.qty{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.qty button{
+background:#D4AF37;
+border:none;
+color:#fff;
+padding:4px 8px;
+border-radius:4px;
+cursor:pointer;
+}
+
+.remove{
+background:none;
+border:none;
+color:#B8860B;
+font-size:18px;
+cursor:pointer;
+}
+
+.cart-total{
+margin-top:15px;
+font-weight:bold;
+}
+
+.finish{
+margin-top:20px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:25px;
+background:linear-gradient(135deg,#D4AF37,#B8860B);
+color:#fff;
+font-size:1rem;
+cursor:pointer;
+}
+
+.toast{
+position:fixed;
+bottom:30px;
+right:30px;
+background:#333;
+color:#fff;
+padding:14px 22px;
+border-radius:30px;
+opacity:0;
+transform:translateY(20px);
+transition:.4s;
+z-index:2000;
+}
+
+.toast.show{
+opacity:1;
+transform:translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>SIVANNE</h1>
+<p>Joias Exclusivas de Alto Padrão</p>
+</header>
+
+<div class="container">
+<div class="categories">
+<button class="category-btn active" data-cat="aneis">Anéis</button>
+<button class="category-btn" data-cat="pulseiras">Pulseiras</button>
+<button class="category-btn" data-cat="brincos">Brincos</button>
+</div>
+
+<div class="products" id="products"></div>
+</div>
+
+<button class="cart-toggle" id="cart-toggle">🛒</button>
+
+<div class="cart" id="cart">
+<h2>Carrinho</h2>
+<div id="cart-items"></div>
+<div class="cart-total" id="cart-total">Total: R$ 0,00</div>
+<button class="finish" onclick="finishOrder()">Finalizar Compra</button>
+</div>
+
+<div class="toast" id="toast">Item adicionado ao carrinho 🛒</div>
+
+<script>
+const whatsappNumber = "5521964300608";
+
+const productsData={
+aneis:[
+{id:1,name:"Anel Diamond",price:6200,image:"https://i.im.ge/2026/01/04/BBAXCM.271f51a9d207980712247ff6f6afa76c.jpeg"},
+{id:2,name:"Anel Luxury",price:2400,image:"https://i.im.ge/2026/01/04/BB8OVh.46416e641879aa2a9c6f3bac774ae0f7.jpeg"},
+{id:3,name:"Anel Ametista",price:4600,image:"https://i.im.ge/2026/01/04/BBgXOf.85578332dbcb17d1dc78a0ee6504f5cd.jpeg"},
+{id:4,name:"Anel Eternal Gold",price:7800,image:"https://i.im.ge/2026/01/04/BBglmm.baa88dde90aea9a6caab617e010916c6.jpeg"},
+{id:5,name:"Anel Gold Minimalista",price:2000,image:"https://i.im.ge/2026/01/04/BBgFoW.9b7602d19f3e722954371a760ffb9fe5.jpeg"},
+{id:6,name:"Aliança Casal Sivanne",price:9200,image:"https://i.im.ge/2026/01/04/BBg1bT.120a18e7455f3d968d3104072e62b319.jpeg"},
+{id:7,name:"Anel the Jade",price:3400,image:"https://i.im.ge/2026/01/04/BBgUXS.cf0be46d53d6978219e38f9b89a14580.jpeg"},
+{id:8,name:"Anel Rubi",price:5600,image:"https://i.im.ge/2026/01/04/BBgjA9.7939adc291d2fcf43de07d466638272e.jpeg"},
+{id:9,name:"Anel Safira",price:6800,image:"https://i.im.ge/2026/01/04/BBgPKM.87e845c17cec46a0b6afd553f2bd7ee5.jpeg"}
+],
+pulseiras:[
+{id:20,name:"Pulseira Blue Ocean",price:9000,image:"https://i.im.ge/2026/01/04/BBZ0r8.178db3f1789f6d1eef71876952fc1b06.jpeg"},
+{id:21,name:"Pulseira Green Emerald",price:11080,image:"https://i.im.ge/2026/01/04/BBZZPL.a3e547a9ff90257932d08410dcc7da4a.jpeg"},
+{id:22,name:"Pulseira Rubi",price:9260,image:"https://i.im.ge/2026/01/04/BBVrZx.0fcba1cba1c6e8a59bc8917294d8df59.jpeg"},
+{id:23,name:"Pulseira Safira",price:1440,image:"https://i.im.ge/2026/01/04/BBVspF.afffc2efff7add021e137ab36d9dc7af.jpeg"},
+{id:24,name:"Pulseira Dark Heart",price:7620,image:"https://i.im.ge/2026/01/04/BBV0GY.f749e77b2a2fa6e1b1fbf63330f32798.jpeg"},
+{id:25,name:"Pulseira Ametista",price:5800,image:"https://i.im.ge/2026/01/04/BBV62q.72f300cd5c4db4b4be2c3b3620ea0815.jpeg"},
+{id:26,name:"Pulseira Diamond",price:10980,image:"https://i.im.ge/2026/01/04/BBVAif.e1d4422e14e0c775a59e83eceb11d88d.jpeg"},
+{id:27,name:"Pulseira Obsidiana",price:2160,image:"https://i.im.ge/2026/01/04/BBVEer.d28cd1f4973cc42def86feed4788261b.jpeg"},
+{id:28,name:"Pulseira Gold Rose",price:6340,image:"https://i.im.ge/2026/01/04/BBV37W.188258a40374e7ae602d05c201050f16.jpeg"}
+],
+brincos:[
+{id:40,name:"Brinco Rubi",price:7700,image:"https://i.im.ge/2026/01/04/BBpU4J.e8628854040064772817624e55207955.jpeg"},
+{id:41,name:"Brinco Diamond",price:8500,image:"https://i.im.ge/2026/01/04/BBpPhX.6bd84138fcabfa18f0ac8eb0656ca9e2.jpeg"},
+{id:42,name:"Brinco Safira",price:13000,image:"https://i.im.ge/2026/01/04/BBpRhP.9a7d8462259e20a6d71067619d6cee88.jpeg"},
+{id:43,name:"Brinco Ametista",price:11150,image:"https://i.im.ge/2026/01/04/BBppwT.ae126c5e68d2c58762cc760d36b4ce4a.jpeg"},
+{id:44,name:"Brinco Emerald",price:13200,image:"https://i.im.ge/2026/01/04/BBpBbx.0337ce4648f5020c0b357f663aa29ea0.jpeg"},
+{id:45,name:"Brinco Blue Ocean",price:14570,image:"https://i.im.ge/2026/01/04/BBvQAy.c09922001af0363e1a2cdf7495190540.jpeg"},
+{id:46,name:"Brinco Gold",price:16010,image:"https://i.im.ge/2026/01/04/BBvMaJ.b060644772a4145f02f778ab3aeb9266.jpeg"},
+{id:47,name:"Brinco Dark Heart",price:17050,image:"https://i.im.ge/2026/01/04/BBvTpS.4d1ccc8518a35ed591a45e5a65f9ada1.jpeg"},
+{id:48,name:"Brinco Perola",price:12900,image:"https://i.im.ge/2026/01/04/BBvlw6.001205d961dc168c6627ed3225522f99.jpeg"}
+]
+};
+
+let cart=[];
+let current="aneis";
+
+const productsEl=document.getElementById("products");
+const cartEl=document.getElementById("cart-items");
+const totalEl=document.getElementById("cart-total");
+
+function renderProducts(){
+productsEl.innerHTML="";
+productsData[current].forEach(p=>{
+productsEl.innerHTML+=`
+<div class="product">
+<img src="${p.image}">
+<h3>${p.name}</h3>
+<p>R$ ${p.price},00</p>
+<button class="add-to-cart" onclick="add(${p.id},this)">Adicionar</button>
+</div>`;
+});
+}
+
+function add(id,btn){
+const product=Object.values(productsData).flat().find(p=>p.id===id);
+const existing=cart.find(i=>i.id===id);
+
+existing ? existing.qty++ : cart.push({...product,qty:1});
+
+btn.classList.add("added");
+setTimeout(()=>btn.classList.remove("added"),700);
+
+showToast();
+renderCart();
+}
+
+function renderCart(){
+cartEl.innerHTML="";
+let total=0;
+
+cart.forEach((i,idx)=>{
+total+=i.price*i.qty;
+cartEl.innerHTML+=`
+<div class="cart-item">
+<span>${i.name}</span>
+<div class="qty">
+<button onclick="changeQty(${idx},-1)">−</button>
+<span>${i.qty}</span>
+<button onclick="changeQty(${idx},1)">+</button>
+</div>
+<button class="remove" onclick="removeItem(${idx})">✕</button>
+</div>`;
+});
+
+totalEl.innerText=`Total: R$ ${total},00`;
+}
+
+function changeQty(i,val){
+cart[i].qty+=val;
+if(cart[i].qty<=0) cart.splice(i,1);
+renderCart();
+}
+
+function removeItem(i){
+cart.splice(i,1);
+renderCart();
+}
+
+function showToast(){
+const t=document.getElementById("toast");
+t.classList.add("show");
+setTimeout(()=>t.classList.remove("show"),2000);
+}
+
+function finishOrder(){
+let msg="Olá! Gostaria de finalizar minha compra na SIVANNE:%0A";
+cart.forEach(i=>{
+msg+=`${i.qty}x ${i.name} - R$ ${i.price},00%0A`;
+});
+window.open(`https://wa.me/${whatsappNumber}?text=${msg}`,"_blank");
+}
+
+document.querySelectorAll(".category-btn").forEach(b=>{
+b.onclick=()=>{
+document.querySelectorAll(".category-btn").forEach(x=>x.classList.remove("active"));
+b.classList.add("active");
+current=b.dataset.cat;
+renderProducts();
+};
+});
+
+document.getElementById("cart-toggle").onclick=()=>{
+document.getElementById("cart").classList.toggle("open");
+};
+
+renderProducts();
+</script>
+
+</body>
+</html>
+
